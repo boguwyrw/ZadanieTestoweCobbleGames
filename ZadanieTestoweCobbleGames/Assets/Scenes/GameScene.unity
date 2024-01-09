@@ -354,7 +354,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathNodeWalkable: {fileID: 7973175603208630083, guid: 0174acdffaf85714886a429f2d355826, type: 3}
+  pathNodeWalkableReference:
+    m_AssetGUID: 0174acdffaf85714886a429f2d355826
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   pathNodeNotWalkable: {fileID: 3743036538317199217, guid: 31f3a7b256cce7949889ab30ebb80e0f, type: 3}
+  pathNodeNotWalkableReference:
+    m_AssetGUID: 31f3a7b256cce7949889ab30ebb80e0f
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
