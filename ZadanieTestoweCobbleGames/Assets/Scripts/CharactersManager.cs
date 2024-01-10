@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class CharactersManager : MonoBehaviour
 {
-    [SerializeField] private AssetReferenceGameObject characterPrefab;
+    [SerializeField] private GameObject characterPrefab;
+
+    private List<Character> charactersList = new List<Character>();
+
+    public List<Character> CharactersList { get { return charactersList; } }
 
     private void Start()
     {
@@ -17,11 +20,13 @@ public class CharactersManager : MonoBehaviour
         
     }
 
-    public void CreateCharacter(int characters)
+    public void CreateCharacter(int charactersNo)
     {
-        for (int i = 0; i < characters; i++)
+        for (int i = 0; i < charactersNo; i++)
         {
-            characterPrefab.InstantiateAsync(new Vector3(i, 0.0f, 0.0f), Quaternion.identity, transform);
+            Character characterClone = null;
+            characterClone = Instantiate(characterPrefab, new Vector3(i, 0.0f, 0.0f), Quaternion.identity, transform).GetComponent<Character>();
+            charactersList.Add(characterClone);
         }
     }
 }

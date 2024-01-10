@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private AssetReferenceGameObject buttonPrefab;
+    [SerializeField] private GameObject buttonPrefab;
 
     [SerializeField] private Transform content;
+
+    private List<CharacterButton> characterButtonsList = new List<CharacterButton>();
+
+    public List<CharacterButton> CharacterButtonsList { get { return characterButtonsList; } }
 
     private void Start()
     {
@@ -23,7 +26,10 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < characters; i++)
         {
-            buttonPrefab.InstantiateAsync(content);
+            CharacterButton buttonClone = null;
+            buttonClone = Instantiate(buttonPrefab, content).GetComponent<CharacterButton>();
+            characterButtonsList.Add(buttonClone);
         }
+        
     }
 }

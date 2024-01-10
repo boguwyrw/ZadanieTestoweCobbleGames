@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CharacterButton : MonoBehaviour
 {
-    
+    private Character characterForButton;
+
     private void Start()
     {
         
@@ -15,8 +16,19 @@ public class CharacterButton : MonoBehaviour
         
     }
 
+    public void SetCharacterForButton(Character character)
+    {
+        characterForButton = character;
+    }
+
     public void SetLeader()
     {
+        GameManager.Instance.TurnOffAllLeaders();
+        characterForButton.IsLeading = true;
+    }
 
+    public void TurnOffLeader()
+    {
+        characterForButton.IsLeading = false;
     }
 }

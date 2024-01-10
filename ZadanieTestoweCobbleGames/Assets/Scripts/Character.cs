@@ -10,6 +10,8 @@ public class Character : MonoBehaviour
     private float agility = 0.0f;
     private float strength = 0.0f;
 
+    public bool IsLeading { set; get; } = false;
+
     private void Start()
     {
         
@@ -17,6 +19,6 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
-        
+        leaderMarker.SetActive(IsLeading);
     }
 }

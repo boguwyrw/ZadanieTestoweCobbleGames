@@ -364,11 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d0cb52294e83d4f9a784085791204c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonPrefab:
-    m_AssetGUID: c11e7d607f8c8ad49b12edbfc91de981
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  buttonPrefab: {fileID: 5464393203242903241, guid: c11e7d607f8c8ad49b12edbfc91de981, type: 3}
   content: {fileID: 1944026954}
 --- !u!1 &625437438
 GameObject:
@@ -828,11 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1643c72f83ad62e46b036da90a8052a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab:
-    m_AssetGUID: c24b00c28af0caa42b9f91ec789923b8
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  characterPrefab: {fileID: 115800175712985284, guid: c24b00c28af0caa42b9f91ec789923b8, type: 3}
 --- !u!4 &1018665580
 Transform:
   m_ObjectHideFlags: 0
