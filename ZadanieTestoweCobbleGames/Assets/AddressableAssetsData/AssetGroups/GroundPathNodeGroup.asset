@@ -32,6 +32,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c11e7d607f8c8ad49b12edbfc91de981
+    m_Address: Assets/Prefabs/CharacterButton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c5307cb8e3d4702458ef313d9c481bfa, type: 2}
   m_SchemaSet:

@@ -21,7 +21,7 @@ public class CharactersManager : MonoBehaviour
     {
         for (int i = 0; i < characters; i++)
         {
-            characterPrefab.InstantiateAsync(new Vector3(i, 0.0f, 0.0f), Quaternion.identity);
+            characterPrefab.InstantiateAsync(new Vector3(i, 0.0f, 0.0f), Quaternion.identity, transform);
         }
     }
 }
