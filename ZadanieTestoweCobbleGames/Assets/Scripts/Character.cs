@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IFollow
 {
     [SerializeField] private GameObject leaderMarker;
 
@@ -20,5 +20,10 @@ public class Character : MonoBehaviour
     private void Update()
     {
         leaderMarker.SetActive(IsLeading);
+    }
+
+    public void FollowLeader(Vector3 leaderPosition)
+    {
+        
     }
 }
