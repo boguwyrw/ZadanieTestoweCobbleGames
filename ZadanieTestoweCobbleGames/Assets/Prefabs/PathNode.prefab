@@ -130,6 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cudeNode: {fileID: 2714291092702765539}
+  walkableLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!65 &8546864487227678132
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -52,9 +52,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 45bdf90abe01db44ba2430d38940c431, type: 2}
+    - target: {fileID: 3081838853433034681, guid: b62376d64978fa943b39374dd51c1785, type: 3}
+      propertyPath: pathNodeLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 3081838853433034681, guid: b62376d64978fa943b39374dd51c1785, type: 3}
+      propertyPath: walkableLayerMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 8166005230388817897, guid: b62376d64978fa943b39374dd51c1785, type: 3}
       propertyPath: m_Name
       value: PathNodeWalkable
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166005230388817897, guid: b62376d64978fa943b39374dd51c1785, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -14,7 +14,7 @@ public class Character : MonoBehaviour, IFollow
 
     private void Start()
     {
-        
+
     }
 
     private void Update()
@@ -22,8 +22,16 @@ public class Character : MonoBehaviour, IFollow
         leaderMarker.SetActive(IsLeading);
     }
 
-    public void FollowLeader(Vector3 leaderPosition)
+    private void OnCollisionEnter(Collision collision)
     {
         
+    }
+
+    public void FollowLeader(Vector3 leaderPosition)
+    {
+        if (!IsLeading)
+        {
+
+        }
     }
 }
