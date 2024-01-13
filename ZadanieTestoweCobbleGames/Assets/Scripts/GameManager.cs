@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private CharactersManager charactersManager;
     [SerializeField] private UIManager uIManager;
+    [SerializeField] private AStarPathfinding aStarPathfinding;
 
     [SerializeField] private int numberOfCharacters = 3;
 
@@ -48,6 +49,11 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < uIManager.CharacterButtonsList.Count; i++)
         {
             uIManager.CharacterButtonsList[i].TurnOffLeader();
+        }
+
+        for (int j = 0; j < charactersManager.CharactersList.Count; j++)
+        {
+            charactersManager.CharactersList[j].ResetStartPathColor();
         }
     }
 }

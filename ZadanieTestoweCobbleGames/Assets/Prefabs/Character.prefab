@@ -99,6 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leaderMarker: {fileID: 7990571015301256495}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  IsPathCheck: 0
 --- !u!1 &2327083436797257837
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ public class CharacterButton : MonoBehaviour
     {
         GameManager.Instance.TurnOffAllLeaders();
         characterForButton.IsLeading = true;
+        characterForButton.IsPathCheck = true;
     }
 
     public void TurnOffLeader()
