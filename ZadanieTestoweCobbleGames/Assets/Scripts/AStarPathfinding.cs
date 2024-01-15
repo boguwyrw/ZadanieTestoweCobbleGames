@@ -22,10 +22,16 @@ public class AStarPathfinding : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            for (int i = 0; i < FindPath().Count; i++)
+            {
+                Debug.Log("F: " + FindPath()[i].FCost);
+            }
+        }
     }
 
-    private List<PathNode> FindPath(PathNode startNode, PathNode endNode)
+    private List<PathNode> FindPath()
     {
         openList.Add(StartNode);
 
@@ -44,11 +50,30 @@ public class AStarPathfinding : MonoBehaviour
             PathNode currentPathNode = GetLowestFCostPathNode(openList);
             if (currentPathNode == EndNode)
             {
-                return CalculatePath(EndNode);
+                return CalculatePath();
             }
 
             openList.Remove(currentPathNode);
             closedList.Add(currentPathNode);
+
+            foreach (PathNode neighbour in GetNeighbours(currentPathNode))
+            {
+                if (closedList.Contains(neighbour)) continue;
+
+                int tempGCost = currentPathNode.GCost + CalculateCost(currentPathNode, neighbour);
+
+                if (tempGCost < neighbour.GCost)
+                {
+                    neighbour.CameFromNode = currentPathNode;
+                    neighbour.GCost = tempGCost;
+                    neighbour.HCost = CalculateCost(neighbour, EndNode);
+
+                    if (!openList.Contains(neighbour))
+                    {
+                        openList.Add(neighbour);
+                    }
+                }
+            }
         }
 
         return null;
@@ -60,15 +85,64 @@ public class AStarPathfinding : MonoBehaviour
 
         if (currentPathNode.PositionX - 1 >= 0)
         {
+            neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX - 1, currentPathNode.PositionZ));
 
+            if (currentPathNode.PositionZ - 1 >= 0)
+            {
+                neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX - 1, currentPathNode.PositionZ - 1));
+            }
+
+            if (currentPathNode.PositionZ + 1 < groundCreator.GridZ)
+            {
+                neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX - 1, currentPathNode.PositionZ + 1));
+            }
+        }
+
+        if (currentPathNode.PositionX + 1 < groundCreator.GridX)
+        {
+            neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX + 1, currentPathNode.PositionZ));
+
+            if (currentPathNode.PositionZ - 1 >= 0)
+            {
+                neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX + 1, currentPathNode.PositionZ - 1));
+            }
+
+            if (currentPathNode.PositionZ + 1 < groundCreator.GridZ)
+            {
+                neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX + 1, currentPathNode.PositionZ + 1));
+            }
+        }
+
+        if (currentPathNode.PositionZ - 1 >= 0)
+        {
+            neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX, currentPathNode.PositionZ - 1));
+        }
+
+        if (currentPathNode.PositionZ + 1 < groundCreator.GridZ)
+        {
+            neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX, currentPathNode.PositionZ + 1));
         }
 
         return neighboursList;
     }
 
-    private List<PathNode> CalculatePath(PathNode endPN)
+    private List<PathNode> CalculatePath()
     {
-        return null;
+        List<PathNode> path = new List<PathNode>();
+
+        path.Add(EndNode);
+
+        PathNode currentNode = EndNode;
+
+        while(currentNode.CameFromNode != null)
+        {
+            path.Add(currentNode.CameFromNode);
+            currentNode = currentNode.CameFromNode;
+        }
+
+        path.Reverse();
+
+        return path;
     }
 
     private int CalculateCost(PathNode start, PathNode end)

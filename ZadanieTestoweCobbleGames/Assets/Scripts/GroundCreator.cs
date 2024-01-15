@@ -19,6 +19,9 @@ public class GroundCreator : MonoBehaviour
 
     private List<PathNode> walkablePathNode = new List<PathNode>();
 
+    public int GridX { get { return gridX; } }
+    public int GridZ { get { return gridZ; } }
+
     public List<PathNode> WalkablePathNode { get { return walkablePathNode; } }
 
     private void Start()
@@ -34,9 +37,7 @@ public class GroundCreator : MonoBehaviour
         }
 
         gridX = pathNodeLines[0].Length;
-        Debug.Log("X: " + gridX);
         gridZ = pathNodeLines.Count;
-        Debug.Log("Z: " + gridZ);
 
         for (int i = 0; i < pathNodeLines.Count; i++)
         {
@@ -66,5 +67,19 @@ public class GroundCreator : MonoBehaviour
     private void Update()
     {
         
+    }
+
+    public PathNode GetPathNode(int x, int z)
+    {
+        PathNode pn = null;
+        for (int i = 0; i < walkablePathNode.Count; i++)
+        {
+            if (walkablePathNode[i].PositionX == x && walkablePathNode[i].PositionZ == z)
+            {
+                pn = walkablePathNode[i];
+            }
+        }
+
+        return pn;
     }
 }
