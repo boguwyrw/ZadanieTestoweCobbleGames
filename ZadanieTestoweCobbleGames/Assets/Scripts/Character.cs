@@ -25,7 +25,6 @@ public class Character : MonoBehaviour, IFollow
     private float strength = 0.0f;
 
     private int waypointIndex = 0;
-    private int leaderIndex = 0;
 
     private PathNode currentPathNode = null;
 
@@ -52,7 +51,7 @@ public class Character : MonoBehaviour, IFollow
             }
             else
             {
-                int indexToFollow = leaderIndex + GameManager.Instance.CharactersOrderList[transform.GetSiblingIndex()].transform.GetSiblingIndex();
+                int indexToFollow = transform.GetSiblingIndex();
                 FollowLeader(GameManager.Instance.CharactersOrderList[indexToFollow].transform.position);
             }
         }   
@@ -108,6 +107,13 @@ public class Character : MonoBehaviour, IFollow
     {
         if (!IsLeading)
         {
+            /*
+            // sledzic GameManager.Instance.CharacterPathList[waypointIndex];
+            if (waypointIndex > 0)
+            {
+                
+            }
+            */
             RotateTowardsWaypoint(leaderPosition);
 
             if (Vector3.Distance(leaderPosition, transform.position) > maxDistanceToLeader)

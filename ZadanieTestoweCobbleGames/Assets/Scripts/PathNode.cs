@@ -61,7 +61,6 @@ public class PathNode : MonoBehaviour
         cudeNode.material.color = startColor;
         isUnavailable = true;
         aStarPathfinding.StartNode = this;
-        gameObject.name = "StartPathNode";
     }
 
     public void SetEndColor()
@@ -69,7 +68,6 @@ public class PathNode : MonoBehaviour
         cudeNode.material.color = endColor;
         isUnavailable = true;
         aStarPathfinding.EndNode = this;
-        gameObject.name = "EndPathNode";
     }
 
     public void SetMarkColor()
