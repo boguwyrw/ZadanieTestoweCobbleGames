@@ -69,6 +69,5 @@ public class PathNode : MonoBehaviour
         isUnavailable = true;
         aStarPathfinding.EndNode = this;
         gameObject.name = "EndPathNode";
-        aStarPathfinding.GetCalculateCost();
     }
 }

@@ -6,6 +6,10 @@ public class AStarPathfinding : MonoBehaviour
 {
     private const int STRAIGHT_COST = 10;
     private const int DIAGONAL_COST = 14;
+    private const int LEFT = -1;
+    private const int RIGHT = 1;
+    private const int UP = 1;
+    private const int DOWN = -1;
 
     [SerializeField] private GroundCreator groundCreator;
 
@@ -24,10 +28,7 @@ public class AStarPathfinding : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            for (int i = 0; i < FindPath().Count; i++)
-            {
-                Debug.Log("F: " + FindPath()[i].FCost);
-            }
+            Debug.Log("F: " + FindPath().Count);
         }
     }
 
@@ -59,7 +60,6 @@ public class AStarPathfinding : MonoBehaviour
 
             foreach (PathNode neighbour in GetNeighbours(currentPathNode))
             {
-                Debug.Log(CalculateCost(currentPathNode, neighbour));
                 if (closedList.Contains(neighbour)) continue;
 
                 int tempGCost = currentPathNode.GCost + CalculateCost(currentPathNode, neighbour);
@@ -85,56 +85,37 @@ public class AStarPathfinding : MonoBehaviour
     {
         List<PathNode> neighboursList = new List<PathNode>();
 
-        if (currentPathNode.PositionX - 1 >= 0)
-        {
-            // Left
-            neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX - 1, currentPathNode.PositionZ));
-            
-            if (currentPathNode.PositionZ - 1 >= 0)
-            {
-                // Left down
-                neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX - 1, currentPathNode.PositionZ - 1));
-            }
-            
-            if (currentPathNode.PositionZ + 1 < groundCreator.GridZ)
-            {
-                // Left up
-                neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX - 1, currentPathNode.PositionZ + 1));
-            }
-        }
+        AddNeighbour(currentPathNode.PositionX + LEFT, currentPathNode.PositionZ, neighboursList);
+        AddNeighbour(currentPathNode.PositionX + LEFT, currentPathNode.PositionZ + DOWN, neighboursList);
+        AddNeighbour(currentPathNode.PositionX + LEFT, currentPathNode.PositionZ + UP, neighboursList);
 
-        if (currentPathNode.PositionX + 1 < groundCreator.GridX)
-        {
-            // Right
-            neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX + 1, currentPathNode.PositionZ));
+        AddNeighbour(currentPathNode.PositionX + RIGHT, currentPathNode.PositionZ, neighboursList);
+        AddNeighbour(currentPathNode.PositionX + RIGHT, currentPathNode.PositionZ + DOWN, neighboursList);
+        AddNeighbour(currentPathNode.PositionX + RIGHT, currentPathNode.PositionZ + UP, neighboursList);
 
-            if (currentPathNode.PositionZ - 1 >= 0)
-            {
-                // Right down
-                neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX + 1, currentPathNode.PositionZ - 1));
-            }
+        AddNeighbour(currentPathNode.PositionX, currentPathNode.PositionZ + DOWN, neighboursList);
+        AddNeighbour(currentPathNode.PositionX, currentPathNode.PositionZ + UP, neighboursList);
 
-            if (currentPathNode.PositionZ + 1 < groundCreator.GridZ)
-            {
-                // Right up
-                neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX + 1, currentPathNode.PositionZ + 1));
-            }
-        }
-
-        if (currentPathNode.PositionZ - 1 >= 0)
-        {
-            // Down
-            neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX, currentPathNode.PositionZ - 1));
-        }
-
-        if (currentPathNode.PositionZ + 1 < groundCreator.GridZ)
-        {
-            // Up
-            neighboursList.Add(groundCreator.GetPathNode(currentPathNode.PositionX, currentPathNode.PositionZ + 1));
-        }
-        
         return neighboursList;
     }
+
+    private void AddNeighbour(int x, int z, List<PathNode> neighboursList)
+    {
+        if (IsWithinGridBounds(x, z))
+        {
+            PathNode neighbour = groundCreator.GetPathNode(x, z);
+            if (neighbour != null)
+            {
+                neighboursList.Add(neighbour);
+            }
+        }
+    }
+
+    private bool IsWithinGridBounds(int x, int z)
+    {
+        return x >= 0 && x < groundCreator.GridX && z >= 0 && z < groundCreator.GridZ;
+    }
+
 
     private List<PathNode> CalculatePath()
     {
@@ -176,11 +157,5 @@ public class AStarPathfinding : MonoBehaviour
         }
 
         return lowestFCost;
-    }
-
-    public void GetCalculateCost()
-    {
-        int result = CalculateCost(StartNode, EndNode);
-        Debug.Log(result);
     }
 }
