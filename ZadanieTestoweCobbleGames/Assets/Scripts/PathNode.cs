@@ -14,10 +14,20 @@ public class PathNode : MonoBehaviour
     private Color32 endColor = new Color32(253, 47, 47, 255);
 
     private bool isWalkable = false;
+    private bool isUnavailable = false;
 
     private AStarPathfinding aStarPathfinding;
 
     public bool IsWalkable { get { return isWalkable; } }
+    public bool IsUnavailable { get { return isUnavailable; } }
+
+    public int PositionX { get { return (int)transform.position.x; } }
+    public int PositionZ { get { return (int)transform.position.z; } }
+    public int GCost { get; set; }
+    public int HCost { get; set; }
+    public int FCost { get { return GCost + HCost; } }
+
+    public PathNode CameFromNode { get; set; }
 
     private void Start()
     {
@@ -48,5 +58,15 @@ public class PathNode : MonoBehaviour
     public void SetStartColor()
     {
         cudeNode.material.color = startColor;
+        isUnavailable = true;
+        aStarPathfinding.StartNode = this;
+    }
+
+    public void SetEndColor()
+    {
+        cudeNode.material.color = endColor;
+        isUnavailable = true;
+        aStarPathfinding.EndNode = this;
+        aStarPathfinding.GetCalculateCost();
     }
 }

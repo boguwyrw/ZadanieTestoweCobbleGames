@@ -11,6 +11,17 @@ public class CameraPointer : MonoBehaviour
         
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (pathNode != null)
+            {
+                pathNode.SetEndColor();
+            }
+        }
+    }
+
     private void FixedUpdate()
     {
         PointPathNode();
@@ -18,7 +29,7 @@ public class CameraPointer : MonoBehaviour
 
     private void PointPathNode()
     {
-        if (pathNode != null)
+        if (pathNode != null && !pathNode.IsUnavailable)
         {
             pathNode.SetDefaultColor();
             pathNode = null;
@@ -30,8 +41,11 @@ public class CameraPointer : MonoBehaviour
         {
             Transform selectionPathNode = hit.transform;
             pathNode = selectionPathNode.GetComponent<PathNode>();
-            if (pathNode != null && pathNode.IsWalkable)
+            bool isPathNodeAvailable = pathNode != null && pathNode.IsWalkable && !pathNode.IsUnavailable;
+            if (isPathNodeAvailable)
+            {
                 pathNode.SetHoverOverColor();
+            }
         }
     }
 }

@@ -5,12 +5,21 @@ using System.IO;
 
 public class GroundCreator : MonoBehaviour
 {
+    private const char PATH_NODE_WALKABLE_SIGN = 'o';
+
     [SerializeField] private AssetReferenceGameObject pathNodeWalkableReference;
     [SerializeField] private AssetReferenceGameObject pathNodeNotWalkableReference;
 
+    [SerializeField] private LayerMask walkableLayerMask;
+
+    private int gridX = 0;
+    private int gridZ = 0;
+
     private List<string> pathNodeLines = new List<string>();
 
-    private const char PATH_NODE_WALKABLE_SIGN = 'o';
+    private List<PathNode> walkablePathNode = new List<PathNode>();
+
+    public List<PathNode> WalkablePathNode { get { return walkablePathNode; } }
 
     private void Start()
     {
@@ -23,7 +32,12 @@ public class GroundCreator : MonoBehaviour
                 pathNodeLines.Add(s);
             }
         }
-        
+
+        gridX = pathNodeLines[0].Length;
+        Debug.Log("X: " + gridX);
+        gridZ = pathNodeLines.Count;
+        Debug.Log("Z: " + gridZ);
+
         for (int i = 0; i < pathNodeLines.Count; i++)
         {
             for (int j = 0; j < pathNodeLines[i].Length; j++)
@@ -36,6 +50,15 @@ public class GroundCreator : MonoBehaviour
                 {
                     pathNodeNotWalkableReference.InstantiateAsync(new Vector3(j, 0.0f, i), Quaternion.identity, transform);
                 }
+            }
+        }
+
+        for (int pn = 0; pn < transform.childCount; pn++)
+        {
+            if (1 << transform.GetChild(pn).gameObject.layer == walkableLayerMask)
+            {
+                PathNode walkablePN = transform.GetChild(pn).GetComponent<PathNode>();
+                walkablePathNode.Add(walkablePN);
             }
         }
     }

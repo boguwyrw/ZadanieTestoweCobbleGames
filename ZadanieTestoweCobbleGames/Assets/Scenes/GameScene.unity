@@ -796,6 +796,9 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  walkableLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &995779429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,6 +811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599892d184893aa42bf67e6372aaddea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundCreator: {fileID: 995779428}
 --- !u!1 &1018665578
 GameObject:
   m_ObjectHideFlags: 0
