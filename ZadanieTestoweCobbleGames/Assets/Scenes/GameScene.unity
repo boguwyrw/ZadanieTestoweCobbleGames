@@ -904,7 +904,7 @@ MonoBehaviour:
   charactersManager: {fileID: 1018665579}
   uIManager: {fileID: 531896778}
   aStarPathfinding: {fileID: 995779429}
-  numberOfCharacters: 1
+  numberOfCharacters: 3
 --- !u!1 &1499700564
 GameObject:
   m_ObjectHideFlags: 0

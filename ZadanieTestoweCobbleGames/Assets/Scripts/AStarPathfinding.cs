@@ -31,7 +31,6 @@ public class AStarPathfinding : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.C))
         {
-            //mainPath = FindPath();
             Debug.Log("Count: " + mainPath.Count);
         }
 #endif
@@ -170,7 +169,6 @@ public class AStarPathfinding : MonoBehaviour
         return lowestFCost;
     }
 
-    //public List<Vector3> CharacterPath()
     public void CharacterPath()
     {
         List<Vector3> pathVec = new List<Vector3>();
@@ -182,13 +180,7 @@ public class AStarPathfinding : MonoBehaviour
         }
 
         pathVec.Add(mainPath[mainPath.Count - 1].gameObject.transform.position);
-        /*
-        for (int i = 0; i < mainPath.Count; i++)
-        {
-            pathVec.Add(mainPath[i].gameObject.transform.position);
-        }
-        */
-        //return pathVec;
+
         GameManager.Instance.CharacterPathList = pathVec;
     }
 }

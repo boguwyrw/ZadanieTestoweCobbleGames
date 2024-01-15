@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public bool CanStartMove { get; set; } = false;
 
     public List<Vector3> CharacterPathList { get; set; }
+    public List<Character> CharactersOrderList { get; set; }
 
     private void Start()
     {
@@ -61,10 +62,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //public List<Vector3> GetCharacterPath()
     public void GetCharacterPath()
     {
         aStarPathfinding.CharacterPath();
-        //return aStarPathfinding.CharacterPath();
+    }
+
+    public void GetCharactersOrderList()
+    {
+        charactersManager.SetCharactersOrder();
     }
 }

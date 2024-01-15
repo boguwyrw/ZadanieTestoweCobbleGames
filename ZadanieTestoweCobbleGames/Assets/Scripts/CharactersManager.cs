@@ -7,8 +7,10 @@ public class CharactersManager : MonoBehaviour
     [SerializeField] private GameObject characterPrefab;
 
     private List<Character> charactersList = new List<Character>();
+    private List<Character> charactersOrderList = new List<Character>();
 
     public List<Character> CharactersList { get { return charactersList; } }
+    public List<Character> CharactersOrderList { get { return charactersOrderList; } }
 
     private void Start()
     {
@@ -20,6 +22,14 @@ public class CharactersManager : MonoBehaviour
         
     }
 
+    private void AddCharacterToOrder(bool isLeading, int index)
+    {
+        if (isLeading)
+        {
+            charactersOrderList.Add(charactersList[index]);
+        }
+    }
+
     public void CreateCharacter(int charactersNo)
     {
         for (int i = 0; i < charactersNo; i++)
@@ -28,5 +38,21 @@ public class CharactersManager : MonoBehaviour
             characterClone = Instantiate(characterPrefab, new Vector3(i, 0.0f, 0.0f), Quaternion.identity, transform).GetComponent<Character>();
             charactersList.Add(characterClone);
         }
+    }
+
+    public void SetCharactersOrder()
+    {
+        int charactersLength = charactersList.Count;
+        for (int i = 0; i < charactersLength; i++)
+        {
+            AddCharacterToOrder(isLeading: charactersList[i].IsLeading, i);
+        }
+
+        for (int j = 0; j < charactersLength; j++)
+        {
+            AddCharacterToOrder(isLeading: !charactersList[j].IsLeading, j);
+        }
+
+        GameManager.Instance.CharactersOrderList = charactersOrderList;
     }
 }

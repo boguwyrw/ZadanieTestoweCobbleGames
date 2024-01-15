@@ -8,6 +8,10 @@ public class Character : MonoBehaviour, IFollow
 
     [SerializeField] private LayerMask groundLayer;
 
+    private float minDistanceToTarget = 0.05f;
+    private float maxDistanceToLeader = 1.05f;
+    private float raycastLength = 2.0f;
+
     private float speedMinRange = 0.5f;
     private float speedMaxRange = 2.0f;
     private float speed = 0.0f;
@@ -21,6 +25,7 @@ public class Character : MonoBehaviour, IFollow
     private float strength = 0.0f;
 
     private int waypointIndex = 0;
+    private int leaderIndex = 0;
 
     private PathNode currentPathNode = null;
 
@@ -39,7 +44,18 @@ public class Character : MonoBehaviour, IFollow
     {
         leaderMarker.SetActive(IsLeading);
 
-        CharacterMovement();
+        if (GameManager.Instance.CanStartMove)
+        {
+            if (IsLeading)
+            {
+                CharacterMovement();
+            }
+            else
+            {
+                int indexToFollow = leaderIndex + GameManager.Instance.CharactersOrderList[transform.GetSiblingIndex()].transform.GetSiblingIndex();
+                FollowLeader(GameManager.Instance.CharactersOrderList[indexToFollow].transform.position);
+            }
+        }   
     }
 
     private void FixedUpdate()
@@ -48,7 +64,7 @@ public class Character : MonoBehaviour, IFollow
         {
             RaycastHit hit;
             Vector3 startRaycast = transform.position + Vector3.up;
-            if (Physics.Raycast(startRaycast, Vector3.down, out hit, 2.0f, groundLayer))
+            if (Physics.Raycast(startRaycast, Vector3.down, out hit, raycastLength, groundLayer))
             {
                 IsPathCheck = false;
                 currentPathNode = hit.transform.GetComponent<PathNode>();
@@ -59,20 +75,16 @@ public class Character : MonoBehaviour, IFollow
 
     private void CharacterMovement()
     {
-        
-        if (GameManager.Instance.CanStartMove)
+        Vector3 targetPosition = GameManager.Instance.CharacterPathList[waypointIndex];
+        RotateTowardsWaypoint(targetPosition);
+
+        if (Vector3.Distance(targetPosition, transform.position) > minDistanceToTarget)
         {
-            Vector3 targetPosition = GameManager.Instance.CharacterPathList[waypointIndex];
-            RotateTowardsWaypoint(targetPosition);
-            
-            if (Vector3.Distance(targetPosition, transform.position) > 0.1f)
-            {
-                transform.Translate(Vector3.forward * speed * Time.deltaTime);           
-            }
-            else if (waypointIndex < GameManager.Instance.CharacterPathList.Count - 1)
-            {
-                waypointIndex++;
-            }
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
+        else if (waypointIndex < GameManager.Instance.CharacterPathList.Count - 1)
+        {
+            waypointIndex++;
         }
     }
 
@@ -96,7 +108,12 @@ public class Character : MonoBehaviour, IFollow
     {
         if (!IsLeading)
         {
+            RotateTowardsWaypoint(leaderPosition);
 
+            if (Vector3.Distance(leaderPosition, transform.position) > maxDistanceToLeader)
+            {
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            }
         }
     }
 }
