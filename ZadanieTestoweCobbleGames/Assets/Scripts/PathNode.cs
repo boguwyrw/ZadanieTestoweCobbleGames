@@ -12,7 +12,7 @@ public class PathNode : MonoBehaviour
     private Color32 hoverOverColor = new Color32(253, 127, 57, 255);
     private Color32 startColor = new Color32(47, 253, 47, 255);
     private Color32 endColor = new Color32(253, 47, 47, 255);
-    private Color32 markColor = new Color32(27, 27, 253, 255);
+    private Color32 markColor = new Color32(47, 47, 253, 255);
 
     private bool isWalkable = false;
     private bool isUnavailable = false;
@@ -74,7 +74,6 @@ public class PathNode : MonoBehaviour
 
     public void SetMarkColor()
     {
-        Debug.Log("SetMarkColor");
         cudeNode.material.color = markColor;
     }
 }

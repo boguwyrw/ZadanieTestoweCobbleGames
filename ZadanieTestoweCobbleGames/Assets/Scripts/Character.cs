@@ -12,8 +12,8 @@ public class Character : MonoBehaviour, IFollow
     private float speedMaxRange = 2.0f;
     private float speed = 0.0f;
 
-    private float agilityMinRange = 2.0f;
-    private float agilityMaxRange = 8.0f;
+    private float agilityMinRange = 6.0f;
+    private float agilityMaxRange = 10.0f;
     private float agility = 0.0f;
 
     private float strengthMinRange = 3.0f;
@@ -59,19 +59,21 @@ public class Character : MonoBehaviour, IFollow
 
     private void CharacterMovement()
     {
-        /*
+        
         if (GameManager.Instance.CanStartMove)
         {
-            Vector3 targetPosition = GameManager.Instance.GetCharacterPath()[waypointIndex];
-            if (Vector3.Distance(targetPosition, transform.position) > 0.1f && waypointIndex < GameManager.Instance.GetCharacterPath().Count - 1)
+            Vector3 targetPosition = GameManager.Instance.CharacterPathList[waypointIndex];
+            RotateTowardsWaypoint(targetPosition);
+            
+            if (Vector3.Distance(targetPosition, transform.position) > 0.1f)
             {
-                transform.Translate(transform.forward * speed * Time.deltaTime);           
-                RotateTowardsWaypoint(targetPosition);
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);           
+            }
+            else if (waypointIndex < GameManager.Instance.CharacterPathList.Count - 1)
+            {
+                waypointIndex++;
             }
         }
-        */
-        if (GameManager.Instance.CanStartMove)
-            RotateTowardsWaypoint(new Vector3(6, 0, 4));
     }
 
     private void RotateTowardsWaypoint(Vector3 waypoint)

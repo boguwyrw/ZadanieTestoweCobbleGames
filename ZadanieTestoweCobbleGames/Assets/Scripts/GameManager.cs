@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     public bool CanStartMove { get; set; } = false;
 
+    public List<Vector3> CharacterPathList { get; set; }
+
     private void Start()
     {
         charactersManager.CreateCharacter(numberOfCharacters);
@@ -43,13 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            for (int i = 0; i < GetCharacterPath().Count; i++)
-            {
-                Debug.Log(GetCharacterPath()[i]);
-            }
-        }
+
     }
 
     public void TurnOffAllLeaders()
@@ -65,8 +61,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public List<Vector3> GetCharacterPath()
+    //public List<Vector3> GetCharacterPath()
+    public void GetCharacterPath()
     {
-        return aStarPathfinding.CharacterPath();
+        aStarPathfinding.CharacterPath();
+        //return aStarPathfinding.CharacterPath();
     }
 }

@@ -18,6 +18,7 @@ public class CameraPointer : MonoBehaviour
             if (pathNode != null)
             {
                 pathNode.SetEndColor();
+                GameManager.Instance.GetCharacterPath();
                 GameManager.Instance.CanStartMove = true;
             }
         }
