@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int numberOfCharacters = 3;
 
+    public bool CanStartMove { get; set; } = false;
+
     private void Start()
     {
         charactersManager.CreateCharacter(numberOfCharacters);
@@ -41,7 +43,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            for (int i = 0; i < GetCharacterPath().Count; i++)
+            {
+                Debug.Log(GetCharacterPath()[i]);
+            }
+        }
     }
 
     public void TurnOffAllLeaders()
@@ -55,5 +63,10 @@ public class GameManager : MonoBehaviour
         {
             charactersManager.CharactersList[j].ResetStartPathColor();
         }
+    }
+
+    public List<Vector3> GetCharacterPath()
+    {
+        return aStarPathfinding.CharacterPath();
     }
 }

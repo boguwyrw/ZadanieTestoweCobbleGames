@@ -18,13 +18,17 @@ public class CameraPointer : MonoBehaviour
             if (pathNode != null)
             {
                 pathNode.SetEndColor();
+                GameManager.Instance.CanStartMove = true;
             }
         }
     }
 
     private void FixedUpdate()
     {
-        PointPathNode();
+        if (!GameManager.Instance.CanStartMove)
+        {
+            PointPathNode();
+        }
     }
 
     private void PointPathNode()

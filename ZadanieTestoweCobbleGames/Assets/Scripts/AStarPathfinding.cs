@@ -16,6 +16,8 @@ public class AStarPathfinding : MonoBehaviour
     private List<PathNode> openList = new List<PathNode>();
     private List<PathNode> closedList = new List<PathNode>();
 
+    private List<PathNode> mainPath = new List<PathNode>();
+
     public PathNode StartNode { get; set; }
     public PathNode EndNode { get; set; }
 
@@ -26,10 +28,12 @@ public class AStarPathfinding : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Debug.Log("F: " + FindPath().Count);
+            Debug.Log("Length: " + mainPath.Count);
         }
+#endif
     }
 
     private List<PathNode> FindPath()
@@ -61,6 +65,12 @@ public class AStarPathfinding : MonoBehaviour
             foreach (PathNode neighbour in GetNeighbours(currentPathNode))
             {
                 if (closedList.Contains(neighbour)) continue;
+
+                if (!neighbour.IsWalkable)
+                {
+                    closedList.Add(neighbour);
+                    continue;
+                }
 
                 int tempGCost = currentPathNode.GCost + CalculateCost(currentPathNode, neighbour);
 
@@ -157,5 +167,17 @@ public class AStarPathfinding : MonoBehaviour
         }
 
         return lowestFCost;
+    }
+
+    public List<Vector3> CharacterPath()
+    {
+        List<Vector3> pathVec = new List<Vector3>();
+
+        for (int i = 0; i < FindPath().Count; i++)
+        {
+            pathVec.Add(FindPath()[i].gameObject.transform.position);
+        }
+
+        return pathVec;
     }
 }
