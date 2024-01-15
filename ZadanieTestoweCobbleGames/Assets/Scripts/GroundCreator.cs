@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using System.IO;
+using System.Collections;
 
 public class GroundCreator : MonoBehaviour
 {
@@ -25,6 +26,34 @@ public class GroundCreator : MonoBehaviour
     public List<PathNode> WalkablePathNode { get { return walkablePathNode; } }
 
     private void Start()
+    {
+        StartCoroutine(Co_WalkablePathNodes());
+    }
+
+    private void Update()
+    {
+
+    }
+
+    private IEnumerator Co_WalkablePathNodes()
+    {
+        yield return new WaitUntil(() => GeneratingPathNodes());
+        WalkablePathNodes();
+    }
+
+    private void WalkablePathNodes()
+    {
+        for (int pn = 0; pn < transform.childCount; pn++)
+        {
+            if (1 << transform.GetChild(pn).gameObject.layer == walkableLayerMask)
+            {
+                PathNode walkablePN = transform.GetChild(pn).GetComponent<PathNode>();
+                walkablePathNode.Add(walkablePN);
+            }
+        }
+    }
+
+    private bool GeneratingPathNodes()
     {
         string filePath = Application.dataPath + @"\Files\ground.txt";
         using (StreamReader sr = File.OpenText(filePath))
@@ -54,19 +83,7 @@ public class GroundCreator : MonoBehaviour
             }
         }
 
-        for (int pn = 0; pn < transform.childCount; pn++)
-        {
-            if (1 << transform.GetChild(pn).gameObject.layer == walkableLayerMask)
-            {
-                PathNode walkablePN = transform.GetChild(pn).GetComponent<PathNode>();
-                walkablePathNode.Add(walkablePN);
-            }
-        }
-    }
-
-    private void Update()
-    {
-        
+        return true;
     }
 
     public PathNode GetPathNode(int x, int z)
@@ -74,7 +91,7 @@ public class GroundCreator : MonoBehaviour
         PathNode pn = null;
         for (int i = 0; i < walkablePathNode.Count; i++)
         {
-            if (walkablePathNode[i].PositionX == x && walkablePathNode[i].PositionZ == z)
+            if ((walkablePathNode[i].PositionX == x) && (walkablePathNode[i].PositionZ == z))
             {
                 pn = walkablePathNode[i];
             }
