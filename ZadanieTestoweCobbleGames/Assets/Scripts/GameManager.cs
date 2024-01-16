@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     public bool CanStartMove { get; set; } = false;
 
     public List<Vector3> CharacterPathList { get; set; }
-    public List<Character> CharactersOrderList { get; set; }
+    public List<Character> CharactersWalkOrderList { get; set; }
 
     private void Start()
     {
@@ -46,7 +47,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        RestartGame();
+    }
 
+    private void RestartGame()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(sceneIndex);
+        }
     }
 
     public void TurnOffAllLeaders()
@@ -58,7 +68,7 @@ public class GameManager : MonoBehaviour
 
         for (int j = 0; j < charactersManager.CharactersList.Count; j++)
         {
-            charactersManager.CharactersList[j].ResetStartPathColor();
+            charactersManager.CharactersList[j].ResetStartPathColor();           
         }
     }
 

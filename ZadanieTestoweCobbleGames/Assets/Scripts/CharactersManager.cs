@@ -53,6 +53,12 @@ public class CharactersManager : MonoBehaviour
             AddCharacterToOrder(isLeading: !charactersList[j].IsLeading, j);
         }
 
-        GameManager.Instance.CharactersOrderList = charactersOrderList;
+        for (int k = 0; k < charactersLength; k++)
+        {
+            Character character = charactersOrderList[k];
+            character.SetIndex = k;
+        }
+
+        GameManager.Instance.CharactersWalkOrderList = charactersOrderList;
     }
 }

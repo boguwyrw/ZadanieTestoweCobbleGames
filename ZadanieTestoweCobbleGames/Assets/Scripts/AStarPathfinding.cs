@@ -173,6 +173,9 @@ public class AStarPathfinding : MonoBehaviour
     {
         List<Vector3> pathVec = new List<Vector3>();
         mainPath = FindPath();
+
+        pathVec.Add(mainPath[0].gameObject.transform.position);
+
         for (int a = 1; a < mainPath.Count - 1; a++)
         {
             mainPath[a].SetMarkColor();

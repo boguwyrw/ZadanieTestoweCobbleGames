@@ -9,7 +9,6 @@ public class Character : MonoBehaviour, IFollow
     [SerializeField] private LayerMask groundLayer;
 
     private float minDistanceToTarget = 0.05f;
-    private float maxDistanceToLeader = 1.05f;
     private float raycastLength = 2.0f;
 
     private float speedMinRange = 0.5f;
@@ -26,9 +25,13 @@ public class Character : MonoBehaviour, IFollow
 
     private int waypointIndex = 0;
 
+    private Vector3 previousPosition;
+
     private PathNode currentPathNode = null;
 
-    public bool IsLeading { set; get; } = false;
+    public bool IsLeading { get; set; } = false;
+
+    public int SetIndex { get; set; }
 
     [HideInInspector] public bool IsPathCheck = false;
 
@@ -48,11 +51,11 @@ public class Character : MonoBehaviour, IFollow
             if (IsLeading)
             {
                 CharacterMovement();
-            }
-            else
-            {
-                int indexToFollow = transform.GetSiblingIndex();
-                FollowLeader(GameManager.Instance.CharactersOrderList[indexToFollow].transform.position);
+                for (int i = 1; i < GameManager.Instance.CharactersWalkOrderList.Count; i++)
+                {
+                    IFollow follow = GameManager.Instance.CharactersWalkOrderList[i];
+                    follow.FollowLeader(previousPosition);
+                }
             }
         }   
     }
@@ -84,6 +87,7 @@ public class Character : MonoBehaviour, IFollow
         else if (waypointIndex < GameManager.Instance.CharacterPathList.Count - 1)
         {
             waypointIndex++;
+            previousPosition = GameManager.Instance.CharacterPathList[waypointIndex - 1];
         }
     }
 
@@ -105,21 +109,11 @@ public class Character : MonoBehaviour, IFollow
 
     public void FollowLeader(Vector3 leaderPosition)
     {
-        if (!IsLeading)
-        {
-            /*
-            // sledzic GameManager.Instance.CharacterPathList[waypointIndex];
-            if (waypointIndex > 0)
-            {
-                
-            }
-            */
-            RotateTowardsWaypoint(leaderPosition);
+        RotateTowardsWaypoint(leaderPosition);
 
-            if (Vector3.Distance(leaderPosition, transform.position) > maxDistanceToLeader)
-            {
-                transform.Translate(Vector3.forward * speed * Time.deltaTime);
-            }
+        if (Vector3.Distance(leaderPosition, transform.position) > minDistanceToTarget)
+        {
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
     }
 }
