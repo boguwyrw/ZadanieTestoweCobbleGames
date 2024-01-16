@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using System.IO;
 using System.Collections;
-using System.Threading.Tasks;
 
 public class GroundCreator : MonoBehaviour
 {
@@ -29,11 +28,6 @@ public class GroundCreator : MonoBehaviour
     private void Start()
     {
         StartCoroutine(Co_WalkablePathNodes());
-    }
-
-    private void Update()
-    {
-
     }
 
     private IEnumerator Co_WalkablePathNodes()

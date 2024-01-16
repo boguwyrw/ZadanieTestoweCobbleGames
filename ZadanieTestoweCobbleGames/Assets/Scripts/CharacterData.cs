@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+public struct CharacterCoord
+{
+    public float CoordX;
+    public float CoordZ;
+}
 
 [System.Serializable]
 public class CharacterData
 {
-    public float[] CharacterPosition;
+    public CharacterCoord CharacterPosition;
 
     public CharacterData(Character character)
     {
-        CharacterPosition = new float[2];
-        CharacterPosition[0] = character.transform.position.x;
-        CharacterPosition[1] = character.transform.position.z;
+        CharacterPosition.CoordX = character.transform.position.x;
+        CharacterPosition.CoordZ = character.transform.position.z;
     }
 }

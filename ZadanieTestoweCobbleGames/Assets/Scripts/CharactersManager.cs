@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,16 +12,6 @@ public class CharactersManager : MonoBehaviour
 
     public List<Character> CharactersList { get { return charactersList; } }
     public List<Character> CharactersOrderList { get { return charactersOrderList; } }
-
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        
-    }
 
     private void AddCharacterToOrder(bool isLeading, int index)
     {

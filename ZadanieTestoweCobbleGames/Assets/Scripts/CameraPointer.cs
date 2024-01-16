@@ -1,15 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraPointer : MonoBehaviour
 {
     private PathNode pathNode = null;
-
-    private void Start()
-    {
-        
-    }
 
     private void Update()
     {

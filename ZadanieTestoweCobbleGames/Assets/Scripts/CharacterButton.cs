@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -8,16 +6,6 @@ public class CharacterButton : MonoBehaviour
     [SerializeField] private TMP_Text characterNameText;
 
     private Character characterForButton;
-
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        
-    }
 
     public void SetCharacterForButton(Character character)
     {
