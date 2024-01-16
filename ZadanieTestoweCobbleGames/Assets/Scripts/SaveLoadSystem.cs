@@ -33,7 +33,7 @@ public class SaveLoadSystem : MonoBehaviour
 
             CharacterData characterData = await Task.Run(() => binaryFormatter.Deserialize(fileStream) as CharacterData);
 
-            character.transform.position = new Vector3(characterData.CharacterPosition.CoordX, 0.0f, characterData.CharacterPosition.CoordZ);
+            character.transform.position = characterData.CharacterPosition.GetCoord();
 
             fileStream.Close();
         }

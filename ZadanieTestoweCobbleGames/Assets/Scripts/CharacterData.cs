@@ -1,7 +1,15 @@
+using UnityEngine;
+
+[System.Serializable]
 public struct CharacterCoord
 {
     public float CoordX;
     public float CoordZ;
+
+    public Vector3 GetCoord()
+    {
+        return new Vector3(CoordX, 0.0f, CoordZ);
+    }
 }
 
 [System.Serializable]
