@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,16 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region Unity Editor Settings
+    [Header("Unity Editor")]
+    [SerializeField] private GameObject endPathNodeInfoGO;
+
+    [SerializeField] private TMP_Text gCostText;
+    [SerializeField] private TMP_Text hCostText;
+    [SerializeField] private TMP_Text fCostText;
+    #endregion
+
+    [Header("Game")]
     [SerializeField] private CharactersManager charactersManager;
     [SerializeField] private UIManager uIManager;
     [SerializeField] private AStarPathfinding aStarPathfinding;
@@ -34,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        endPathNodeInfoGO.SetActive(false);
+
         charactersManager.CreateCharacter(numberOfCharacters);
         uIManager.CreateButton(numberOfCharacters);
 
@@ -48,6 +61,15 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         RestartGame();
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (!endPathNodeInfoGO.activeSelf)
+            {
+                endPathNodeInfoGO.SetActive(true);
+            }
+        }
+#endif
     }
 
     private void RestartGame()
@@ -80,5 +102,17 @@ public class GameManager : MonoBehaviour
     public void GetCharactersOrderList()
     {
         charactersManager.SetCharactersOrder();
+    }
+
+    public void AssignCostsValues(PathNode endNode)
+    {
+        string gCost = $"{gCostText.text} {endNode.GCost}";
+        gCostText.text = gCost;
+
+        string hCost = $"{hCostText.text} {endNode.HCost}";
+        hCostText.text = hCost;
+
+        string fCost = $"{fCostText.text} {endNode.FCost}";
+        fCostText.text = fCost;
     }
 }

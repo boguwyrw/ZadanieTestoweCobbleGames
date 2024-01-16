@@ -21,6 +21,7 @@ public class CameraPointer : MonoBehaviour
                 GameManager.Instance.GetCharacterPath();
                 GameManager.Instance.GetCharactersOrderList();
                 GameManager.Instance.CanStartMove = true;
+                GameManager.Instance.AssignCostsValues(pathNode);
             }
         }
     }
