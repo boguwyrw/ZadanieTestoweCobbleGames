@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CharactersManager charactersManager;
     [SerializeField] private UIManager uIManager;
     [SerializeField] private AStarPathfinding aStarPathfinding;
+    [SerializeField] private SaveLoadSystem saveLoadSystem;
 
     [SerializeField] private int numberOfCharacters = 3;
 
@@ -61,6 +62,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         RestartGame();
+
+        SaveLoadGameProgress();
+
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -78,6 +82,19 @@ public class GameManager : MonoBehaviour
         {
             int sceneIndex = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(sceneIndex);
+        }
+    }
+
+    private void SaveLoadGameProgress()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            saveLoadSystem.SaveGameProgress(CharactersWalkOrderList[0]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            saveLoadSystem.LoadGameProgress(CharactersWalkOrderList[0]);
         }
     }
 

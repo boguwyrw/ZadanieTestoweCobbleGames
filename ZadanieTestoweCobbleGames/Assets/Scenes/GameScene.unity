@@ -1136,6 +1136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1167359335}
   - component: {fileID: 1167359336}
+  - component: {fileID: 1167359337}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1177,7 +1178,20 @@ MonoBehaviour:
   charactersManager: {fileID: 1018665579}
   uIManager: {fileID: 531896778}
   aStarPathfinding: {fileID: 995779429}
+  saveLoadSystem: {fileID: 1167359337}
   numberOfCharacters: 3
+--- !u!114 &1167359337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167359334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3f066f04f54b5459c4363d43155ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1481804171
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,6 +33,8 @@ public class Character : MonoBehaviour, IFollow
 
     public int SetIndex { get; set; }
 
+    public string CharacterName { get; set; }
+
     [HideInInspector] public bool IsPathCheck = false;
 
     private void Start()

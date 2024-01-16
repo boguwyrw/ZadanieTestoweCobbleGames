@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharactersManager : MonoBehaviour
 {
+    private const string PART_NAME = "Player_";
+
     [SerializeField] private GameObject characterPrefab;
 
     private List<Character> charactersList = new List<Character>();
@@ -36,6 +38,7 @@ public class CharactersManager : MonoBehaviour
         {
             Character characterClone = null;
             characterClone = Instantiate(characterPrefab, new Vector3(i, 0.0f, 0.0f), Quaternion.identity, transform).GetComponent<Character>();
+            characterClone.CharacterName = PART_NAME + (i+1);
             charactersList.Add(characterClone);
         }
     }
